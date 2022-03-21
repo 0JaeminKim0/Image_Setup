@@ -1,0 +1,70 @@
+<!-- Copyright Epic Games, Inc. All Rights Reserved. -->
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+	<link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+	<link type="text/css" rel="stylesheet" href="player.css">
+    <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script type="text/javascript" src="scripts/webRtcPlayer.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+	<script type="text/javascript">
+		var fullScreen = false;
+		function btnClickFullScreen() {
+			console.log('fullscreen entered')
+			document.documentElement.webkitRequestFullScreen();
+			window.addEventListener('resize', window_resize);
+			fullScreen = true;
+		}
+		function btnClickExitFullScreen(){
+			document.exitFullscreen();
+			window.addEventListener('resize', window_resize);
+			fullScreen = false;
+		}
+
+		function btnFullScreen(){
+			if(fullScreen===true){
+				btnClickExitFullScreen();
+			}else{
+				btnClickFullScreen();
+			}
+		}
+		function window_resize() {
+			let fullscreenImg = document.getElementById("btnFullScreen");
+			if(fullscreenImg){
+				fullscreenImg.src = isFullscreen ? '../images/max.png' : '../images/max.png'
+				fullscreenImg.alt = isFullscreen ? 'Shrink to normal size' : 'Maximise to Fullscreen'
+			}
+		}
+	</script>
+	
+</head>
+
+<body onload="load()">
+	<div style="position:fixed; bottom: 20px; right: 20px; z-index:9999;">		
+		<div id="btnFullScreen" alt='Maximise to Fullscreen' onclick="btnFullScreen()" class="fullscreen-btn">
+			<img src="../images/max.png" style="width:22px; height:22px">
+		</div>
+	</div>
+	<div id="playerUI">
+		<div id="player"></div>
+		<div id="overlay" class="overlay bg-transparent">
+			<div>
+				<div id="qualityStatus" class="greyStatus"></div>
+				<div id="overlayButton"></div>
+			</div>
+			<div id="overlaySettings">
+				<div id="fillWindow">
+					<div class="settings-text"></div>
+					<label class="tgl-switch">
+						<input type="checkbox" id="enlarge-display-to-fill-window-tgl" class="tgl tgl-flat" checked>
+						<div class="tgl-slider"></div>
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
