@@ -398,7 +398,8 @@ function fraudDetect(){
     newScript.src = 'direct.js';
 }
 */
-function showConnectOverlay() {
+
+/* function showConnectOverlay() {
     let img = document.createElement('img');
     img.id = 'videoPlayOverlay';
     img.src = '/images/play.png';
@@ -408,7 +409,29 @@ function showConnectOverlay() {
         connect();
         startAfkWarningTimer();
     });
+}*/
+
+// 2022-03-21 수정부분 테스트
+window.addEventListener("resize", function(event) {
+    showConnectOverlay()
+});
+
+function showConnectOverlay() {
+    let intViewportWidth = window.innerWidth;
+    let img = document.createElement('img');
+    img.id = 'videoPlayOverlay';
+    img.alt = 'Start Streaming';
+    if (intViewportWidth > 767) {
+        img.src = '/images/start_pg.png';
+    } else {
+        img.src = '/images/start_pg_m.png';
+    }
+    setOverlay('clickableState', img, event => {
+        connect();
+        startAfkWarningTimer();
+    });
 }
+
 /*
 function showPlayOverlay() {
     var img = document.createElement('img');
